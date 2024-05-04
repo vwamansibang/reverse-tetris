@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfdek46qs3uf4"]
+
+[ext_resource type="Texture2D" uid="uid://qfgou4skxwjl" path="res://assets/tetris-blocks.png" id="1_1t3f7"]
+
+[node name="block_texture" type="Sprite2D"]
+texture = ExtResource("1_1t3f7")
+hframes = 5
+vframes = 3

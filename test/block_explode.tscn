@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://qiy7ln778bqj"]
+
+[ext_resource type="Texture2D" uid="uid://ctsl5v6supbxa" path="res://assets/tetris-explode.png" id="1_006xh"]
+[ext_resource type="Script" path="res://test/block_explode.gd" id="2_otgja"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i2o71"]
+atlas = ExtResource("1_006xh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fq8b4"]
+atlas = ExtResource("1_006xh")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fgf6"]
+atlas = ExtResource("1_006xh")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5y4nb"]
+atlas = ExtResource("1_006xh")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shdty"]
+atlas = ExtResource("1_006xh")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5gyjr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i2o71")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fq8b4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5fgf6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5y4nb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shdty")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="block_explode" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_5gyjr")
+autoplay = "default"
+frame_progress = 0.609114
+script = ExtResource("2_otgja")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]
+[connection signal="animation_looped" from="." to="." method="_on_animation_looped"]

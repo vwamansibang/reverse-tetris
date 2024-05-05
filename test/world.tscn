@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dj4umdye83t3x"]
+[gd_scene load_steps=5 format=3 uid="uid://dj4umdye83t3x"]
 
 [ext_resource type="Texture2D" uid="uid://b402q6xlh330k" path="res://assets/tetris-frame.png" id="1_qjlw1"]
 [ext_resource type="PackedScene" uid="uid://rtfmmnwbmh2j" path="res://test/magnet.tscn" id="2_vrc8p"]
+[ext_resource type="PackedScene" uid="uid://8l7n2yc2yckn" path="res://test/block_t.tscn" id="3_potql"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u1eqg"]
 size = Vector2(192, 20)
@@ -14,6 +15,7 @@ texture = ExtResource("1_qjlw1")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(58, 194)
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(70, 0)
@@ -21,13 +23,15 @@ shape = SubResource("RectangleShape2D_u1eqg")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="."]
 position = Vector2(58, 194)
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
-position = Vector2(70, -152)
+position = Vector2(70, -156)
 shape = SubResource("RectangleShape2D_u1eqg")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2(58, 194)
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
 position = Vector2(-20, -86)
@@ -36,6 +40,7 @@ shape = SubResource("RectangleShape2D_u1eqg")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="."]
 position = Vector2(58, 194)
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
 position = Vector2(160, -86)
@@ -43,4 +48,21 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_u1eqg")
 
 [node name="magnet" parent="." instance=ExtResource("2_vrc8p")]
-position = Vector2(128, 112)
+position = Vector2(88, 112)
+
+[node name="block-t" parent="." instance=ExtResource("3_potql")]
+position = Vector2(72, 160)
+texture_type = 1
+
+[node name="block-t2" parent="." instance=ExtResource("3_potql")]
+position = Vector2(72, 144)
+rotation = 1.5708
+
+[node name="block-t3" parent="." instance=ExtResource("3_potql")]
+position = Vector2(168, 160)
+rotation = 4.71239
+texture_type = 1
+
+[node name="block-t4" parent="." instance=ExtResource("3_potql")]
+position = Vector2(120, 176)
+rotation = 3.14159

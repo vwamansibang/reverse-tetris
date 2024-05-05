@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2bqj2g3p1nyl"]
+
+[ext_resource type="Script" path="res://test/block_t.gd" id="1_edqm2"]
+[ext_resource type="PackedScene" uid="uid://b8gxh6dnxppc5" path="res://test/block_part.tscn" id="2_h1a4x"]
+
+[node name="block-plus" type="Node2D"]
+script = ExtResource("1_edqm2")
+
+[node name="block_part" parent="." instance=ExtResource("2_h1a4x")]
+
+[node name="block_part2" parent="." instance=ExtResource("2_h1a4x")]
+position = Vector2(-16, 0)
+
+[node name="block_part3" parent="." instance=ExtResource("2_h1a4x")]
+position = Vector2(0, 16)
+
+[node name="block_part4" parent="." instance=ExtResource("2_h1a4x")]
+position = Vector2(16, 0)
+
+[node name="block_part5" parent="." instance=ExtResource("2_h1a4x")]
+position = Vector2(0, -16)

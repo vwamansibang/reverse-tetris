@@ -48,14 +48,14 @@ rotation = 1.5708
 shape = SubResource("RectangleShape2D_u1eqg")
 
 [node name="magnet" parent="." instance=ExtResource("2_vrc8p")]
-position = Vector2(88, 112)
+position = Vector2(168, 104)
 
 [node name="block-t" parent="." instance=ExtResource("3_potql")]
 position = Vector2(72, 160)
 texture_type = 1
 
 [node name="block-t2" parent="." instance=ExtResource("3_potql")]
-position = Vector2(72, 144)
+position = Vector2(104, 144)
 rotation = 1.5708
 
 [node name="block-t3" parent="." instance=ExtResource("3_potql")]

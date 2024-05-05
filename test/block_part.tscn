@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://qfgou4skxwjl" path="res://assets/tetris-blocks.png" id="2_t515n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5dixh"]
-size = Vector2(16, 16)
+size = Vector2(14, 16)
 
-[node name="block_part" type="CharacterBody2D"]
+[node name="block_part" type="CharacterBody2D" groups=["block_group"]]
 script = ExtResource("1_afob4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -18,14 +18,14 @@ texture = ExtResource("2_t515n")
 hframes = 5
 vframes = 3
 
-[node name="ray_left" type="RayCast2D" parent="."]
+[node name="ray_left" type="RayCast2D" parent="." groups=["ray_group"]]
 target_position = Vector2(10, 0)
 
-[node name="ray_down" type="RayCast2D" parent="."]
+[node name="ray_down" type="RayCast2D" parent="." groups=["ray_group"]]
 target_position = Vector2(0, 10)
 
-[node name="ray_right" type="RayCast2D" parent="."]
+[node name="ray_right" type="RayCast2D" parent="." groups=["ray_group"]]
 target_position = Vector2(-10, 0)
 
-[node name="ray_up" type="RayCast2D" parent="."]
+[node name="ray_up" type="RayCast2D" parent="." groups=["ray_group"]]
 target_position = Vector2(0, -10)

@@ -31,4 +31,4 @@ target_position = Vector2(-10, 0)
 target_position = Vector2(10, 0)
 
 [node name="down" type="RayCast2D" parent="."]
-target_position = Vector2(0, 14)
+target_position = Vector2(0, 9)

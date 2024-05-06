@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dj4umdye83t3x"]
+[gd_scene load_steps=7 format=3 uid="uid://dj4umdye83t3x"]
 
+[ext_resource type="Script" path="res://test/testing_norths.gd" id="1_jlr6l"]
 [ext_resource type="Texture2D" uid="uid://b402q6xlh330k" path="res://assets/tetris-frame.png" id="1_qjlw1"]
 [ext_resource type="PackedScene" uid="uid://rtfmmnwbmh2j" path="res://test/magnet.tscn" id="2_vrc8p"]
 [ext_resource type="PackedScene" uid="uid://8l7n2yc2yckn" path="res://test/block_t.tscn" id="3_potql"]
+[ext_resource type="Theme" uid="uid://dlv2kbikh0wmn" path="res://default_ui_theme.tres" id="4_8k3y7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u1eqg"]
 size = Vector2(192, 20)
 
 [node name="world" type="Node2D"]
+script = ExtResource("1_jlr6l")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(128, 112)
@@ -66,3 +69,11 @@ texture_type = 1
 [node name="block-t4" parent="." instance=ExtResource("3_potql")]
 position = Vector2(120, 176)
 rotation = 3.14159
+
+[node name="Label" type="Label" parent="."]
+offset_left = 64.0
+offset_top = 184.0
+offset_right = 190.0
+offset_bottom = 207.0
+theme = ExtResource("4_8k3y7")
+text = "Hello Hi hey"

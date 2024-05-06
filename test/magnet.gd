@@ -33,13 +33,12 @@ func _process(delta):
 			move_horizontal(1)
 	
 	# DETECT MAGNETISM
-	if ray_down.is_colliding():
-		if ray_down.get_collider() == null:
-			return
-		if ray_down.get_collider().is_in_group("block_group") and !stick:
-			if ray_down.get_collider().get_parent().check_if_under:
+	if ray_down.is_colliding() and ray_down.get_collider() != null:
+		if ray_down.get_collider().get_parent().check_if_under:
 				multiplier = -1
+				stick = false
 				return
+		if ray_down.get_collider().is_in_group("block_group") and !stick:
 			stick = true
 			attached_obj = ray_down.get_collider()
 			
@@ -48,20 +47,21 @@ func _process(delta):
 			auto.shape_rotation_data =  attached_obj.get_parent().rotation
 			auto.shape_type_data = attached_obj.get_parent().shape_file
 			auto.shape_texture_data = attached_obj.get_parent().texture_type
+			
 			attach_object(attached_obj)
-#			for block in attached_obj:
-#				print(block.name, ": ", block.global_position)
 
 func _physics_process(delta):
-#	if stick:
-#		attached_obj.position = position - carry_vector
-		
 	if multiplier == -1:
-		velocity.y += gravity *multiplier * delta *0.6
+		velocity.y += gravity *multiplier * delta *0.75
 	elif multiplier == 1:
-		velocity.y += gravity *multiplier * delta *1.72
+		velocity.y += gravity *multiplier * delta *1.8
+		
+	if Input.is_action_just_pressed("ui_accept") and not moving:
+		multiplier *= -1
+#		if get_tree().get_nodes_in_group("block_group").size() > 0:
+#			get_tree().get_nodes_in_group("block_group").pick_random().get_parent().kill_yourself()
+	move_and_slide()
 	
-#	if !stick:
 	if is_on_ceiling():
 		moving = false
 		if object_released:
@@ -73,22 +73,11 @@ func _physics_process(delta):
 	elif is_on_floor():
 		moving = false
 		if ready_to_drop and !object_released:
-			velocity.y = -1
+			multiplier = -1
 			release_object()
 			object_released = true
 	else:
 		moving = true
-#	else:
-#		moving = false
-#		print(moving)
-		
-	if Input.is_action_just_pressed("ui_accept") and not moving:
-		multiplier *= -1
-		
-#		if get_tree().get_nodes_in_group("block_group").size() > 0:
-#			get_tree().get_nodes_in_group("block_group").pick_random().get_parent().kill_yourself()
-
-	move_and_slide()
 
 func move_horizontal(direction):
 	if prevent_repeat:
@@ -123,11 +112,13 @@ func release_object():
 	var saved_scene = auto.shape_type_data
 	var saved_instance = saved_scene.instantiate()
 	var gap = position - auto.magnet_vector_data
-	
+
 	saved_instance.position = auto.shape_vector_data + gap
 	saved_instance.rotation = auto.shape_rotation_data
 	saved_instance.texture_type = auto.shape_texture_data
+	saved_instance.add_to_group("shape_group")
 	get_parent().add_child(saved_instance)
 	
 	get_tree().call_group("temp_group", "queue_free")
 	auto.reset_vector_data()
+	attached_obj = null

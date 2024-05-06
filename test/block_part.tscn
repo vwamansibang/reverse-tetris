@@ -4,10 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://qfgou4skxwjl" path="res://assets/tetris-blocks.png" id="2_t515n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5dixh"]
-size = Vector2(14, 16)
+size = Vector2(16, 16)
 
 [node name="block_part" type="CharacterBody2D" groups=["block_group"]]
 script = ExtResource("1_afob4")
+north_color = Color(0.168627, 1, 0, 1)
+white_color = Color(1, 1, 1, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5dixh")

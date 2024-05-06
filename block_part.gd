@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 @export var texture_type : int = 0
+@export var north_color : Color
+@export var white_color : Color
 
 @onready var ray_left = $ray_left
 @onready var ray_right = $ray_right
@@ -33,11 +35,12 @@ func _ready():
 	ray_checks = determine_parts()
 	determine_texture(ray_checks)
 	set_north()
+	check_above()
 
 func _process(delta):
-	if !do_once:
-		set_north()
-	do_once = true
+#	if !do_once:
+	set_north()
+#	do_once = true
 	check_above()
 #	if !auto.temp_pause: #May or may not be redundant but im not gonna check
 #	if !texture_safe:
@@ -119,13 +122,13 @@ func determine_texture(ray_checks):
 func check_above():
 	if north_ray == null:
 		return
+	if north_ray.get_collider() == null:
+		return
 	if north_ray.is_colliding() and north_ray.get_collider().is_in_group("block_group"):
 		if !north_ray.get_collider().is_in_group("block"+append_str+"_group"):
 			get_parent().check_if_under = true
-		else:
-			get_parent().check_if_under = false
-	else:
-		get_parent().check_if_under = false
+			north_ray.self_modulate = north_color
+			return true
 
 func set_north():
 	if roundi(get_parent().rotation_degrees) == 0:
@@ -137,7 +140,13 @@ func set_north():
 	elif roundi(get_parent().rotation_degrees) == 270:
 		north_ray = ray_left
 		
+#	north_ray.self_modulate = north_color
+		
 #	print(get_parent().name, ": ", north_ray)
 func easy_access():
 	ray_checks = determine_parts()
 	determine_texture(ray_checks)
+	
+func confirm_north_ray():
+	if north_ray == null: return
+	if north_ray.self_modulate == north_color: return true

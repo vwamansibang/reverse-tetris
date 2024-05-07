@@ -27,36 +27,47 @@ func _process(delta):
 	axel.global_position.y = 48
 	
 	if not moving and is_on_ceiling():
-		if Input.is_action_just_pressed("ui_left") and !ray_left.is_colliding():
+		if Input.is_action_just_pressed("ui_left"):
+			for ray in get_tree().get_nodes_in_group("magnet_left"):
+				if !ray.is_colliding():
+					continue
+				else:
+					return
 			move_horizontal(-1)
-		if Input.is_action_just_pressed("ui_right") and !ray_right.is_colliding():
+			
+		if Input.is_action_just_pressed("ui_right"):
+			for ray in get_tree().get_nodes_in_group("magnet_right"):
+				if !ray.is_colliding():
+					continue
+				else:
+					return
 			move_horizontal(1)
 	
 	# DETECT MAGNETISM
 	if ray_down.is_colliding() and ray_down.get_collider() != null:
-		if ray_down.get_collider().get_parent().check_if_under:
+		if ray_down.get_collider().is_in_group("block_group") and !stick:
+			stick = true
+			if ray_down.get_collider().get_parent().check_if_under:
 				multiplier = -1
 				stick = false
 				return
-		if ray_down.get_collider().is_in_group("block_group") and !stick:
-			stick = true
 			attached_obj = ray_down.get_collider()
 			
 			auto.magnet_vector_data = position
 			auto.shape_vector_data = attached_obj.get_parent().position
 			auto.shape_rotation_data =  attached_obj.get_parent().rotation
-			auto.shape_type_data = attached_obj.get_parent().shape_file
+			auto.shape_type_data = load(attached_obj.get_parent().shape_file)
 			auto.shape_texture_data = attached_obj.get_parent().texture_type
 			
 			attach_object(attached_obj)
 
 func _physics_process(delta):
 	if multiplier == -1:
-		velocity.y += gravity *multiplier * delta *0.75
+		velocity.y += gravity *multiplier * delta *2
 	elif multiplier == 1:
-		velocity.y += gravity *multiplier * delta *1.8
+		velocity.y += gravity *multiplier * delta *2
 		
-	if Input.is_action_just_pressed("ui_accept") and not moving:
+	if Input.is_action_just_pressed("ui_down") and not moving:
 		multiplier *= -1
 #		if get_tree().get_nodes_in_group("block_group").size() > 0:
 #			get_tree().get_nodes_in_group("block_group").pick_random().get_parent().kill_yourself()
@@ -72,8 +83,8 @@ func _physics_process(delta):
 			ready_to_drop = true
 	elif is_on_floor():
 		moving = false
+		multiplier = -1
 		if ready_to_drop and !object_released:
-			multiplier = -1
 			release_object()
 			object_released = true
 	else:
@@ -106,6 +117,20 @@ func attach_object(obj):
 		shape_instance.position = to_local(block.global_position)
 		shape_instance.add_to_group("temp_group")
 		add_child(shape_instance)
+		
+		var temp_ray = RayCast2D.new()
+		temp_ray.position = to_local(block.global_position)
+		temp_ray.target_position = Vector2(-10, 0)
+		temp_ray.add_to_group("temp_group")
+		temp_ray.add_to_group("magnet_left")
+		add_child(temp_ray)
+		
+		var temp_ray2 = RayCast2D.new()
+		temp_ray2.position = to_local(block.global_position)
+		temp_ray2.target_position = Vector2(10, 0)
+		temp_ray2.add_to_group("temp_group")
+		temp_ray2.add_to_group("magnet_right")
+		add_child(temp_ray2)
 	obj.get_parent().queue_free()
 	
 func release_object():

@@ -60,15 +60,17 @@ texture_type = 1
 [node name="block-t2" parent="." instance=ExtResource("3_potql")]
 position = Vector2(104, 144)
 rotation = 1.5708
+texture_type = 4
 
 [node name="block-t3" parent="." instance=ExtResource("3_potql")]
 position = Vector2(168, 160)
 rotation = 4.71239
-texture_type = 1
+texture_type = 2
 
 [node name="block-t4" parent="." instance=ExtResource("3_potql")]
 position = Vector2(120, 176)
 rotation = 3.14159
+texture_type = 3
 
 [node name="Label" type="Label" parent="."]
 offset_left = 64.0

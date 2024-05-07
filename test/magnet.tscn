@@ -24,10 +24,10 @@ z_index = -1
 position = Vector2(0, -80)
 texture = ExtResource("3_7ue7w")
 
-[node name="left" type="RayCast2D" parent="."]
+[node name="left" type="RayCast2D" parent="." groups=["magnet_left"]]
 target_position = Vector2(-10, 0)
 
-[node name="right" type="RayCast2D" parent="."]
+[node name="right" type="RayCast2D" parent="." groups=["magnet_right"]]
 target_position = Vector2(10, 0)
 
 [node name="down" type="RayCast2D" parent="."]

@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var texture_type : int = 0
-@export var shape_file = load("res://test/block_t.tscn")
+@export var shape_file = "res://test/block_t.tscn"
 var check_if_under = false
 
 func _ready():
@@ -16,4 +16,3 @@ func autocheck():
 		if part.confirm_north_ray():
 			check_if_under = part.check_above()
 			break
-	

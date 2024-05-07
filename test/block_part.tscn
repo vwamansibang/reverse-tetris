@@ -18,7 +18,7 @@ debug_color = Color(0.94902, 0.0901961, 0.321569, 0.419608)
 [node name="Sprite2D" type="Sprite2D" parent="." groups=["block_group"]]
 texture = ExtResource("2_t515n")
 hframes = 5
-vframes = 3
+vframes = 5
 
 [node name="ray_left" type="RayCast2D" parent="." groups=["ray_group"]]
 target_position = Vector2(10, 0)

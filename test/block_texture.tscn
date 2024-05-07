@@ -5,4 +5,4 @@
 [node name="block_texture" type="Sprite2D"]
 texture = ExtResource("1_1t3f7")
 hframes = 5
-vframes = 3
+vframes = 5

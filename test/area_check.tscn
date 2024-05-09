@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://odsx4u8atbba"]
+
+[ext_resource type="Script" path="res://test/area_check.gd" id="1_ku8nq"]
+[ext_resource type="Texture2D" uid="uid://e6r10t3e7wuv" path="res://assets/tetris-sign.png" id="1_ylc4k"]
+[ext_resource type="Texture2D" uid="uid://cg5xxr08verjk" path="res://assets/tetris-wrong.png" id="3_848em"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mm150"]
+size = Vector2(40, 72)
+
+[node name="area_check" type="Node2D"]
+script = ExtResource("1_ku8nq")
+
+[node name="no_allow_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="no_allow_area"]
+shape = SubResource("RectangleShape2D_mm150")
+
+[node name="check_shapes_area" type="Area2D" parent="."]
+position = Vector2(0, 80)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="check_shapes_area"]
+shape = SubResource("RectangleShape2D_mm150")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-16, 144)
+texture = ExtResource("1_ylc4k")
+hframes = 4
+vframes = 2
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, 144)
+texture = ExtResource("1_ylc4k")
+hframes = 4
+vframes = 2
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(16, 144)
+texture = ExtResource("1_ylc4k")
+hframes = 4
+vframes = 2
+
+[node name="error_img" type="Sprite2D" parent="."]
+z_index = 2
+texture = ExtResource("3_848em")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="body_entered" from="no_allow_area" to="." method="_on_no_allow_area_body_entered"]
+[connection signal="body_exited" from="no_allow_area" to="." method="_on_no_allow_area_body_exited"]
+[connection signal="body_entered" from="check_shapes_area" to="." method="_on_check_shapes_area_body_entered"]
+[connection signal="body_exited" from="check_shapes_area" to="." method="_on_check_shapes_area_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

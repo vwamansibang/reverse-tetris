@@ -17,11 +17,17 @@ script = ExtResource("1_8p6j5")
 shape = SubResource("RectangleShape2D_c4kca")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 3
 texture = ExtResource("1_lr7qc")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 z_index = -1
 position = Vector2(0, -80)
+texture = ExtResource("3_7ue7w")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, -160)
 texture = ExtResource("3_7ue7w")
 
 [node name="left" type="RayCast2D" parent="." groups=["magnet_left"]]

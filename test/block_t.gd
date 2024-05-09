@@ -6,10 +6,13 @@ var check_if_under = false
 
 func _ready():
 	get_tree().call_group("shape_group", "autocheck")
+	for part in self.get_children():
+		if part == null:
+			break
+		part.easy_access()
 	
 func _process(delta):
-	for part in self.get_children():
-		part.easy_access()
+	pass
 	
 func autocheck():
 	for part in self.get_children():

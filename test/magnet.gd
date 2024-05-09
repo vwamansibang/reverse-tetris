@@ -9,6 +9,8 @@ const SPEED = 240.0
 const JUMP_VELOCITY = -240.0
 const pull_up = 120
 
+@export var axel_pos = 48
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -24,7 +26,7 @@ var ready_to_drop = false
 var object_released = false
 
 func _process(delta):
-	axel.global_position.y = 48
+	axel.global_position.y = axel_pos
 	
 	if not moving and is_on_ceiling():
 		if Input.is_action_just_pressed("ui_left"):
@@ -63,9 +65,9 @@ func _process(delta):
 
 func _physics_process(delta):
 	if multiplier == -1:
-		velocity.y += gravity *multiplier * delta *2
+		velocity.y += gravity *multiplier * delta *1.2
 	elif multiplier == 1:
-		velocity.y += gravity *multiplier * delta *2
+		velocity.y += gravity *multiplier * delta *1.6
 		
 	if Input.is_action_just_pressed("ui_down") and not moving:
 		multiplier *= -1
@@ -97,7 +99,7 @@ func move_horizontal(direction):
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CIRC)
-	tween.tween_property(self, "position", position+Vector2(16*direction, 0), 0.16)
+	tween.tween_property(self, "position", position+Vector2(16*direction, 0), 0.12)
 	await tween.finished
 	prevent_repeat = false
 	

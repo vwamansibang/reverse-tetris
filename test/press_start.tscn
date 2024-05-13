@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://fnh60qn582bg"]
+
+[ext_resource type="Theme" uid="uid://dlv2kbikh0wmn" path="res://default_ui_theme.tres" id="1_4856h"]
+[ext_resource type="Script" path="res://Label.gd" id="2_l53rc"]
+
+[node name="press_start" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -61.0
+offset_top = -7.0
+offset_right = 65.0
+offset_bottom = 16.0
+theme = ExtResource("1_4856h")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Press STart"
+horizontal_alignment = 1
+script = ExtResource("2_l53rc")

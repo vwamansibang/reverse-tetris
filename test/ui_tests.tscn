@@ -1,0 +1,119 @@
+[gd_scene load_steps=5 format=3 uid="uid://lvt8grdrgcax"]
+
+[ext_resource type="Texture2D" uid="uid://b1dtv6sxfundk" path="res://assets/tetris-option-title.png" id="1_8mxai"]
+[ext_resource type="Script" path="res://test/ui_tests.gd" id="1_anbni"]
+[ext_resource type="Theme" uid="uid://dlv2kbikh0wmn" path="res://default_ui_theme.tres" id="2_r2ioq"]
+[ext_resource type="Texture2D" uid="uid://csjvosm5i1xsf" path="res://assets/tetris-option-final.png" id="3_jr48w"]
+
+[node name="Ui_tests" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_anbni")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -24.0
+offset_bottom = 24.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_neighbor_top = NodePath("../TextureRect3")
+texture = ExtResource("1_8mxai")
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.0
+offset_top = -20.0
+offset_right = 31.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="TextureRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_r2ioq")
+text = "Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = 40.0
+offset_bottom = 88.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_neighbor_bottom = NodePath("../TextureRect")
+texture = ExtResource("3_jr48w")
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 38.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="TextureRect3/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_r2ioq")
+text = "Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("2_r2ioq")
+action_mode = 0
+button_mask = 0
+texture_normal = ExtResource("3_jr48w")
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 38.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="TextureButton/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "12345"
+horizontal_alignment = 1
+vertical_alignment = 1

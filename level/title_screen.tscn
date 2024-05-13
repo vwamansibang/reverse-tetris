@@ -1,0 +1,220 @@
+[gd_scene load_steps=14 format=3 uid="uid://25sl5heu4odb"]
+
+[ext_resource type="Texture2D" uid="uid://cshurlfomxj6k" path="res://assets/tetris-sheet.png" id="1_83pn8"]
+[ext_resource type="Script" path="res://level/title_screen.gd" id="1_anhxc"]
+[ext_resource type="PackedScene" uid="uid://rtfmmnwbmh2j" path="res://test/magnet.tscn" id="2_2lb0o"]
+[ext_resource type="Texture2D" uid="uid://dlntt5aqp07n0" path="res://assets/tetris-NAME.png" id="3_lcnel"]
+[ext_resource type="PackedScene" uid="uid://fnh60qn582bg" path="res://test/press_start.tscn" id="5_2nva3"]
+[ext_resource type="PackedScene" uid="uid://cxmye7w8frrvi" path="res://test/title_ui.tscn" id="6_xoq4e"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i3ojn"]
+texture = ExtResource("1_83pn8")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+0:2/0 = 0
+0:2/0/z_index = -2
+1:2/0 = 0
+1:2/0/z_index = -2
+2:2/0 = 0
+3:2/0 = 0
+3:2/0/z_index = -2
+4:2/0 = 0
+4:2/0/z_index = -2
+5:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_182mp"]
+sources/1 = SubResource("TileSetAtlasSource_i3ojn")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slsl8"]
+size = Vector2(360, 16)
+
+[sub_resource type="Animation" id="Animation_80all"]
+resource_name = "fall_down"
+length = 1.25
+step = 0.05
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("intro/magnet")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"anim_fall_down"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.25),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"anim_pull_up"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_nrqda"]
+resource_name = "pull_up"
+length = 1.6
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("intro/magnet")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"anim_pull_up"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("intro/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(136, 275), Vector2(136, 91)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/press_start")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:intro_done")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.6),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ofwrn"]
+resource_name = "slide_in"
+length = 1.8
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("intro/magnet:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(0.392292, 0.450625),
+"update": 0,
+"values": [Vector2(-56, 48), Vector2(136, 48)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"anim_fall_down"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vg5d0"]
+_data = {
+"fall_down": SubResource("Animation_80all"),
+"pull_up": SubResource("Animation_nrqda"),
+"slide_in": SubResource("Animation_ofwrn")
+}
+
+[node name="title_screen" type="Node2D"]
+script = ExtResource("1_anhxc")
+
+[node name="intro" type="Node2D" parent="."]
+
+[node name="magnet" parent="intro" instance=ExtResource("2_2lb0o")]
+position = Vector2(-56, 48)
+axel_pos = -56
+physics_switch = false
+
+[node name="Sprite2D" type="Sprite2D" parent="intro"]
+visible = false
+position = Vector2(136, 275)
+texture = ExtResource("3_lcnel")
+
+[node name="TileMap" type="TileMap" parent="intro"]
+tile_set = SubResource("TileSet_182mp")
+format = 2
+layer_0/tile_data = PackedInt32Array(65536, 65537, 0, 65537, 1, 0, 65538, 65537, 0, 65539, 1, 0, 65540, 65537, 0, 65541, 1, 0, 65543, 1, 0, 65545, 1, 0, 65542, 65537, 0, 65544, 65537, 0, 65546, 65537, 0, 131071, 1, 0, 131070, 65537, 0, 131069, 1, 0, 131068, 65537, 0, 65547, 1, 0, 65548, 65537, 0, 65549, 1, 0, 65550, 65537, 0, 65551, 1, 0, 65552, 65537, 0, 65553, 1, 0, 65554, 65537, 0, 65555, 1, 0, 65556, 65537, 0, 65557, 1, 0, 65558, 65537, 0, 65559, 1, 0, 65560, 65537, 0, 65561, 1, 0, 65563, 1, 0, 65562, 65537, 0, 131075, 65537, 2, 196611, 65537, 2, 262147, 1, 2, 327683, 65537, 2, 393219, 65537, 2, 458755, 1, 2, 524291, 65537, 2, 589827, 1, 2, 655363, 65537, 2, 720899, 1, 2, 786435, 1, 2, 851971, 65537, 2, 131085, 1, 2, 196621, 65537, 2, 262157, 1, 2, 327693, 1, 2, 393229, 65537, 2, 458765, 65537, 2, 524301, 1, 2, 589837, 65537, 2, 655373, 65537, 2, 720909, 1, 2, 786445, 65537, 2, 851981, 65537, 2, 15, 131073, 2, -65521, 131073, 2, -131057, 131073, 1, -196593, 131073, 2, -262129, 131073, 2, -65536, 131073, 2, -131072, 131073, 2, -196608, 131073, 2, -262144, 131073, 2, 0, 131073, 2, 18, 131073, 2, -196590, 131073, 2, -262126, 131073, 2, -65518, 131073, 1, -131054, 131073, 2, -327665, 131073, 2, -393201, 131073, 2, -458737, 131073, 2, -524273, 131073, 1, -589809, 131073, 2, -655345, 131073, 2, -327662, 131073, 1, -393198, 131073, 2, -458734, 131073, 2, -524270, 131073, 1, -589806, 131073, 2, -655342, 131073, 2, -720878, 131073, 2, -720879, 262145, 0, -720880, 262145, 0, -720881, 131073, 2, -720882, 262145, 0, -720883, 262145, 0, -720884, 196609, 0, -720885, 262145, 0, -720886, 262145, 0, -720887, 262145, 0, -720888, 262145, 0, -720889, 262145, 0, -720890, 196609, 0, -720891, 262145, 0, -720892, 262145, 0, -720893, 262145, 0, -720894, 262145, 0, -720895, 262145, 0, -720896, 65537, 0, -786417, 131073, 2, -786414, 131073, 1, -851950, 131073, 2, -851953, 131073, 1, -917489, 131073, 2, -917486, 131073, 2, -589807, 262145, 2, -589808, 262145, 2, -589810, 262145, 2, -589811, 262145, 2, -589812, 262145, 2, -589813, 262145, 2, -589814, 262145, 2, -589815, 262145, 2, -589818, 262145, 2, -589819, 262145, 2, -655351, 196609, 2, -655354, 196609, 2, -589816, 262145, 2, -589817, 262145, 2, -655348, 196609, 2, -655357, 196609, 2, -589820, 262145, 2, -589821, 262145, 2, -589822, 262145, 2, -589823, 262145, 2, 917507, 131073, 0, 917517, 131073, 0, 983053, 1, 0, 983052, 65537, 0, 983051, 65537, 0, 983050, 65537, 0, 983049, 65537, 0, 983048, 65537, 0, 983047, 65537, 0, 983046, 65537, 0, 983045, 65537, 0, 983044, 65537, 0, 983043, 65537, 0, 983054, 65537, 0, 983055, 65537, 0, 983056, 65537, 0, 983057, 65537, 0, 983058, 65537, 0, 983059, 65537, 0, 983060, 65537, 0, 983061, 65537, 0)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="intro"]
+position = Vector2(0, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="intro/StaticBody2D"]
+position = Vector2(88, 24)
+shape = SubResource("RectangleShape2D_slsl8")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="press_start" parent="CanvasLayer" instance=ExtResource("5_2nva3")]
+visible = false
+offset_left = 134.0
+offset_top = 188.0
+offset_right = 134.0
+offset_bottom = 188.0
+
+[node name="buttons_and_shit" type="CanvasLayer" parent="."]
+offset = Vector2(24, 0)
+transform = Transform2D(1, 0, 0, 1, 24, 0)
+
+[node name="title_ui" parent="buttons_and_shit" instance=ExtResource("6_xoq4e")]
+offset_left = 232.0
+offset_right = 232.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "slide_in"
+libraries = {
+"": SubResource("AnimationLibrary_vg5d0")
+}
+
+[connection signal="pressed" from="buttons_and_shit/title_ui/title_button" to="." method="_on_title_button_pressed"]
+
+[editable path="buttons_and_shit/title_ui"]

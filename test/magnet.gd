@@ -10,6 +10,7 @@ const JUMP_VELOCITY = -240.0
 const pull_up = 120
 
 @export var axel_pos = 48
+@export var physics_switch = true
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -25,26 +26,39 @@ var carry_vector = Vector2.ZERO
 var ready_to_drop = false
 var object_released = false
 
+var horizontal_direct = 0
+var HORIZONTAL_moving = false
+var prev_horizon = Vector2.ZERO
+var prev_crossed = false
+var prev_checked = false
+var follow_magnet_img = false
+
 func _process(delta):
-	axel.global_position.y = axel_pos
+	if physics_switch:
+		axel.global_position.y = 40
+	else:
+		if follow_magnet_img:
+			axel.position = to_global(position + Vector2(0,0))
+		else:
+			axel.position.y = to_global(Vector2(0, axel_pos)).y
 	
-	if not moving and is_on_ceiling():
-		if Input.is_action_just_pressed("ui_left"):
+	if not moving and is_on_ceiling():			
+		if Input.is_action_pressed("ui_left"):
 			for ray in get_tree().get_nodes_in_group("magnet_left"):
 				if !ray.is_colliding():
 					continue
 				else:
 					return
 			move_horizontal(-1)
-			
-		if Input.is_action_just_pressed("ui_right"):
+		
+		elif Input.is_action_pressed("ui_right"):
 			for ray in get_tree().get_nodes_in_group("magnet_right"):
 				if !ray.is_colliding():
 					continue
 				else:
 					return
 			move_horizontal(1)
-	
+				
 	# DETECT MAGNETISM
 	if ray_down.is_colliding() and ray_down.get_collider() != null:
 		if ray_down.get_collider().is_in_group("block_group") and !stick:
@@ -53,6 +67,8 @@ func _process(delta):
 				multiplier = -1
 				stick = false
 				return
+			
+			main_camera.freeze_frame(0.075)
 			attached_obj = ray_down.get_collider()
 			
 			auto.magnet_vector_data = position
@@ -64,10 +80,18 @@ func _process(delta):
 			attach_object(attached_obj)
 
 func _physics_process(delta):
+	if !physics_switch:
+		return
+		
+	var speed_cap = 1.85#20#1.85
 	if multiplier == -1:
-		velocity.y += gravity *multiplier * delta *1.2
+		if !ready_to_drop and stick:
+			speed_cap = 10
+			velocity.y = gravity *multiplier * delta *speed_cap
+		else:
+			velocity.y += gravity *multiplier * delta *speed_cap
 	elif multiplier == 1:
-		velocity.y += gravity *multiplier * delta *1.6
+		velocity.y += gravity *multiplier * delta *speed_cap
 		
 	if Input.is_action_just_pressed("ui_down") and not moving:
 		multiplier *= -1
@@ -96,10 +120,11 @@ func move_horizontal(direction):
 	if prevent_repeat:
 		return
 	prevent_repeat = true
+	var speed_cap = 0.075
 	var tween = create_tween()
-	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_CIRC)
-	tween.tween_property(self, "position", position+Vector2(16*direction, 0), 0.12)
+	if ready_to_drop and stick: speed_cap = 0.12
+	tween.tween_property(self, "position", position+Vector2(16*direction, 0), speed_cap)
+
 	await tween.finished
 	prevent_repeat = false
 	
@@ -149,3 +174,29 @@ func release_object():
 	get_tree().call_group("temp_group", "queue_free")
 	auto.reset_vector_data()
 	attached_obj = null
+
+func anim_fall_down():
+	$AnimationPlayer.play("fall_down")
+
+func anim_pull_up():
+	$AnimationPlayer.play("pull_up")
+
+func check_collides(direct):
+	if direct == -1:
+			for ray in get_tree().get_nodes_in_group("magnet_left"):
+				if !ray.is_colliding():
+					continue
+				else:
+					return true
+	if direct == 1:
+		for ray in get_tree().get_nodes_in_group("magnet_right"):
+			if !ray.is_colliding():
+				continue
+			else:
+				return true
+	return false
+
+func hide_rope():
+	$Sprite2D2.hide()
+	$Sprite2D3.hide()
+	follow_magnet_img = true

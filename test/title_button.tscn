@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4bkcrnl6gvgl"]
+
+[ext_resource type="Theme" uid="uid://dlv2kbikh0wmn" path="res://default_ui_theme.tres" id="1_q24dp"]
+[ext_resource type="Texture2D" uid="uid://csjvosm5i1xsf" path="res://assets/tetris-option-final.png" id="2_t6sqf"]
+[ext_resource type="Script" path="res://test/title_button.gd" id="3_ox5r1"]
+
+[node name="title_button" type="TextureButton"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_q24dp")
+action_mode = 0
+button_mask = 0
+texture_normal = ExtResource("2_t6sqf")
+script = ExtResource("3_ox5r1")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 38.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Play"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://dlv2kbikh0wmn"]
 
-[ext_resource type="FontFile" uid="uid://ia0yy4hb7irc" path="res://assets/C&C Red Alert [INET].ttf" id="1_oje20"]
+[ext_resource type="FontFile" uid="uid://bc8hq11eg0ktp" path="res://assets/8-BIT WONDER.TTF" id="1_q1enk"]
 
 [resource]
-Label/font_sizes/font_size = 8
-Label/fonts/font = ExtResource("1_oje20")
+Label/font_sizes/font_size = 12
+Label/fonts/font = ExtResource("1_q1enk")
